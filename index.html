@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>阿仙奴死忠終極大考驗 🔴⚪ | Arsenal Ultimate Fan Quiz 2011-2026</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gunnersRed: '#DB0007',
+            gunnersRedDark: '#9E0005',
+            emiratesNavy: '#06141F',
+            emiratesDarkBlue: '#020B12',
+            gunnersGold: '#FFD700',
+            gunnersGoldMuted: '#9C824A',
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+          },
+          keyframes: {
+            shake: {
+              '0%, 100%': { transform: 'translateX(0)' },
+              '20%, 60%': { transform: 'translateX(-8px)' },
+              '40%, 80%': { transform: 'translateX(8px)' },
+            },
+            pop: {
+              '0%': { transform: 'scale(0.96)', opacity: '0' },
+              '100%': { transform: 'scale(1)', opacity: '1' },
+            },
+            glow: {
+              '0%, 100%': { opacity: '0.35' },
+              '50%': { opacity: '0.75' }
+            }
+          },
+          animation: {
+            shake: 'shake 0.4s ease-in-out',
+            pop: 'pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+            glow: 'glow 2.5s infinite ease-in-out',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #020B12;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(219, 0, 7, 0.35) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(6, 20, 31, 0.95) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(156, 130, 74, 0.15) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .glass-card {
+      background: rgba(6, 20, 31, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .glass-option {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .glass-option:hover:not(:disabled) {
+      background: rgba(219, 0, 7, 0.25);
+      border-color: rgba(219, 0, 7, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(219, 0, 7, 0.3);
+    }
+
+    .glass-option.selected-pair {
+      background: rgba(255, 215, 0, 0.25) !important;
+      border-color: #FFD700 !important;
+      color: #FFD700 !important;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+    }
+
+    .glass-option.correct {
+      background: rgba(34, 197, 94, 0.25) !important;
+      border-color: #22c55e !important;
+      color: #86efac !important;
+      box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
+    }
+
+    .glass-option.wrong {
+      background: rgba(239, 68, 68, 0.25) !important;
+      border-color: #ef4444 !important;
+      color: #fca5a5 !important;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(6, 20, 31, 0.8);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #DB0007;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-slate-100 flex items-center justify-center p-3 sm:p-5 font-sans antialiased selection:bg-gunnersRed selection:text-white">
+
+  <!-- Main Container -->
+  <div class="w-full max-w-2xl relative z-10 my-4">
+
+    <!-- Decorative Glow elements -->
+    <div class="absolute -top-12 -left-12 w-60 h-60 bg-gunnersRed/30 rounded-full blur-3xl animate-glow pointer-events-none"></div>
+    <div class="absolute -bottom-12 -right-12 w-60 h-60 bg-gunnersGold/20 rounded-full blur-3xl animate-glow pointer-events-none"></div>
+
+    <!-- START SCREEN -->
+    <div id="start-screen" class="glass-card rounded-3xl p-6 md:p-10 shadow-2xl text-center relative overflow-hidden border-t-4 border-t-gunnersRed animate-pop">
+      <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-gunnersRed to-gunnersRedDark text-gunnersGold text-3xl shadow-lg shadow-gunnersRed/40 mb-5 border border-gunnersGold/30">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+
+      <h1 class="text-2xl md:text-4xl font-extrabold tracking-tight mb-3 text-white">
+        阿仙奴死忠終極大考驗 🔴⚪
+      </h1>
+      
+      <p class="text-slate-300 text-sm md:text-base mb-6 leading-relaxed">
+        驗證你係咪真正的阿仙奴資深槍迷！涵蓋 <b>2011 - 2026</b> 精選重大事件、戰術細節、轉會紀錄及經典時刻！
+      </p>
+
+      <div class="bg-black/40 rounded-2xl p-4 mb-6 border border-white/10 text-xs md:text-sm text-slate-300 text-left space-y-2.5">
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-tv text-gunnersGold w-4 text-center"></i>
+          <span>廣東話官方譯名（<b>Now Sports / Now TV</b> 賽事風格）</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-layer-group text-gunnersGold w-4 text-center"></i>
+          <span>包含 <b>15 條題型混合測試</b>（單選、配對題、順序排列）</span>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <i class="fa-solid fa-fire text-gunnersGold w-4 text-center"></i>
+          <span>首 10 題為<b>高難度魔鬼考驗</b>（戰術數據、精密時間戳記）</span>
+        </div>
+      </div>
+
+      <button onclick="startGame()" class="w-full py-4 px-8 bg-gradient-to-r from-gunnersRed to-red-700 hover:from-red-600 hover:to-gunnersRed text-white text-lg font-bold rounded-2xl shadow-xl shadow-gunnersRed/30 hover:shadow-gunnersRed/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-3 group">
+        <span>開始死忠挑戰 (15 題)</span>
+        <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+      </button>
+    </div>
+
+    <!-- QUIZ SCREEN -->
+    <div id="quiz-screen" class="glass-card rounded-3xl p-5 md:p-8 shadow-2xl border-t-4 border-t-gunnersRed hidden">
+      <!-- Top Meta Info -->
+      <div class="flex items-center justify-between mb-4 text-xs md:text-sm font-semibold text-slate-300">
+        <span id="question-number" class="bg-slate-800/80 px-3 py-1.5 rounded-xl border border-white/10 text-gunnersGold flex items-center gap-2">
+          <i class="fa-regular fa-circle-question"></i>
+          <span>問題 1/15</span>
+        </span>
+        <span id="question-badge" class="bg-gunnersRed/20 px-2.5 py-1 rounded-xl border border-gunnersRed/40 text-gunnersRed text-xs uppercase font-bold tracking-wider">
+          單選題
+        </span>
+        <span id="score-count" class="bg-slate-800/80 px-3 py-1.5 rounded-xl border border-white/10 text-green-400 flex items-center gap-2">
+          <i class="fa-solid fa-star"></i>
+          <span>得分: 0</span>
+        </span>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-800/80 rounded-full h-2.5 mb-6 p-0.5 border border-white/5 overflow-hidden">
+        <div id="progress" class="bg-gradient-to-r from-gunnersRed to-gunnersGold h-full rounded-full transition-all duration-500 shadow-md shadow-gunnersRed/50" style="width: 6.66%;"></div>
+      </div>
+
+      <!-- Question Title -->
+      <div class="mb-5">
+        <h2 id="question-text" class="text-lg md:text-xl font-bold text-white leading-snug">
+          題目載入中...
+        </h2>
+      </div>
+
+      <!-- Interactive Area -->
+      <div id="quiz-interaction-area" class="mb-6">
+        <!-- Dynamic content: MC buttons / Matching pairs / Sorting list -->
+      </div>
+
+      <!-- Explanation Box -->
+      <div id="explanation" class="hidden mb-6 p-4 rounded-2xl bg-slate-900/90 border border-slate-700/60 text-slate-200 text-xs md:text-sm leading-relaxed animate-pop">
+        <div class="font-bold text-gunnersGold mb-1 flex items-center gap-2">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Now TV 戰術與賽事解析：</span>
+        </div>
+        <p id="explanation-text"></p>
+      </div>
+
+      <!-- Action Button -->
+      <button id="action-btn" onclick="handleActionClick()" class="hidden w-full py-3.5 px-6 bg-gradient-to-r from-gunnersRed to-red-700 hover:from-red-600 hover:to-gunnersRed text-white text-base font-bold rounded-2xl shadow-lg shadow-gunnersRed/30 transition-all duration-200 flex items-center justify-center gap-2">
+        <span id="action-btn-text">確認答案</span>
+        <i id="action-btn-icon" class="fa-solid fa-chevron-right text-xs"></i>
+      </button>
+    </div>
+
+    <!-- RESULT SCREEN -->
+    <div id="result-screen" class="glass-card rounded-3xl p-6 md:p-10 shadow-2xl text-center border-t-4 border-t-gunnersGold hidden animate-pop">
+      <div class="inline-flex items-center justify-center w-24 h-24 rounded-3xl bg-gradient-to-br from-gunnersGold to-yellow-600 text-emiratesNavy text-4xl shadow-xl shadow-gunnersGold/20 mb-6 border-2 border-white/20">
+        <i id="rank-icon" class="fa-solid fa-trophy"></i>
+      </div>
+
+      <h2 class="text-2xl font-extrabold text-slate-200 mb-2">大考驗完結！</h2>
+      <p class="text-slate-400 text-sm mb-4">你在 15 條阿仙奴死忠題目中答對了：</p>
+
+      <!-- Final Score Circle -->
+      <div class="inline-flex items-baseline justify-center gap-1 my-2 py-3 px-8 rounded-2xl bg-black/40 border border-white/10">
+        <span id="final-score" class="text-5xl font-black text-gunnersRed">0</span>
+        <span class="text-2xl font-bold text-slate-400">/ 15</span>
+      </div>
+
+      <div class="my-6">
+        <h3 id="rank-title" class="text-2xl md:text-3xl font-black text-gunnersGold mb-2">
+          酋長球場傳奇
+        </h3>
+        <p id="rank-desc" class="text-slate-300 text-xs md:text-sm max-w-md mx-auto leading-relaxed">
+          描述載入中...
+        </p>
+      </div>
+
+      <button onclick="startGame()" class="w-full py-4 px-8 bg-gradient-to-r from-gunnersRed to-red-700 hover:from-red-600 hover:to-gunnersRed text-white text-lg font-bold rounded-2xl shadow-xl shadow-gunnersRed/30 hover:shadow-gunnersRed/50 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2">
+        <i class="fa-solid fa-rotate-right"></i>
+        <span>再次挑戰 (15 題)</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- GAME DATA & ENGINE -->
+  <script>
+    // 15 Comprehensive Questions (Q1-Q10 Hardcore, Q11-Q15 Classic & Interactive)
+    // Types: "mc" (Multiple Choice), "matching" (Pairs), "order" (Chronological / Numerical Order)
+    const questions = [
+      // Q1: MC (Hard)
+      {
+        id: 1,
+        type: "mc",
+        badge: "硬核單選",
+        question: "2014 年 FA Cup 決賽阿仙奴 3:2 逆轉侯城打破 9 年無冠魔咒。請問加時階段為藍斯（Aaron Ramsey）送出精妙後踭助攻攻入致勝球嘅係邊位球員？",
+        options: [
+          "卡索拉 (Santi Cazorla)",
+          "基奧特 (Olivier Giroud)",
+          "韋舒亞 (Jack Wilshere)",
+          "波多斯基 (Lukas Podolski)"
+        ],
+        answer: 1,
+        explanation: "加時下半場第 109 分鐘，基奧特喺禁區內高難度用後踭斜傳，藍斯及時插上右腳第一時間扣射破網，鎖定 3:2 勝局捧盃！"
+      },
+
+      // Q2: MATCHING (Hard)
+      {
+        id: 2,
+        type: "matching",
+        badge: "配對題",
+        question: "【硬核配對】請將以下 4 位阿仙奴球員與其當年加盟前效力嘅「原屬球會」精確連線：",
+        pairs: [
+          { left: "卡索拉 (Santi Cazorla)", right: "馬拉加 (Málaga)" },
+          { left: "薩利巴 (William Saliba)", right: "聖伊天 (Saint-Étienne)" },
+          { left: "馬天尼利 (Gabriel Martinelli)", right: "伊圖諾 (Ituano)" },
+          { left: "卡拉菲奧里 (Riccardo Calafiori)", right: "博洛尼亞 (Bologna)" }
+        ],
+        explanation: "卡索拉 2012 年由西甲馬拉加加盟；薩利巴 2019 年由聖伊天簽入再回借；馬天尼利 2019 年由巴西低組別伊圖諾直跳英超；卡拉菲奧里則於 2024 夏天由意甲博洛尼亞轉投！"
+      },
+
+      // Q3: MC (Hard)
+      {
+        id: 3,
+        type: "mc",
+        badge: "硬核單選",
+        question: "2017 年 1 月阿仙奴對陣水晶宮，基奧特（Olivier Giroud）射入勇奪國際足協普斯卡斯獎（Puskás Award）嘅「蠍子腳」世界波。請問為佢送出左路傳中助攻嘅係邊位？",
+        options: [
+          "韋舒亞 (Jack Wilshere)",
+          "阿歷斯山齊士 (Alexis Sánchez)",
+          "奧斯爾 (Mesut Özil)",
+          "蒙利爾 (Nacho Monreal)"
+        ],
+        answer: 1,
+        explanation: "阿仙奴展現極速反擊，阿歷斯山齊士左路傳中至基奧特身後，基奧特順勢施展反腳「蠍子腳」扣彈槓入網，獲選 2017 全球最佳入球！"
+      },
+
+      // Q4: ORDER (Hard)
+      {
+        id: 4,
+        type: "order",
+        badge: "順序排列",
+        question: "【歷史排序】請將以下 4 位領隊「接替/正式執教阿仙奴」嘅時間由最早至最近排序：",
+        items: [
+          "雲格 (Arsène Wenger)",
+          "埃梅里 (Unai Emery)",
+          "永貝里 (Freddie Ljungberg - 臨時代理)",
+          "阿迪達 (Mikel Arteta)"
+        ],
+        // Correct indices corresponding to initial items array
+        correctOrderIndices: [0, 1, 2, 3],
+        explanation: "正確歷史順序：雲格執教至 2018 年 5 月 ➔ 埃梅里（2018年5月 - 2019年11月）➔ 永貝里（2019年11月 - 12月代理）➔ 阿迪達（2019年12月正式接任至今）。"
+      },
+
+      // Q5: MC (Hard)
+      {
+        id: 5,
+        type: "mc",
+        badge: "硬核數據",
+        question: "2022/23 賽季英超主場對陣般尼茅夫，阿仙奴落後 0:2 情況下完成 3:2 狂喜大逆轉。雷斯尼爾遜（Reiss Nelson）喺禁區外左腳轟入絕殺球時，比賽時間係？",
+        options: [
+          "92 分鐘 15 秒",
+          "94 分鐘 30 秒",
+          "96 分鐘 57 秒",
+          "99 分鐘 05 秒"
+        ],
+        answer: 2,
+        explanation: "雷斯尼爾遜喺 96 分鐘 57 秒（補時第 7 分鐘最後一刻）把握解圍角球，禁區外左腳半威廉世界波破網，創下 Emirates 時代最震撼逆轉之一！"
+      },
+
+      // Q6: MATCHING (Hard)
+      {
+        id: 6,
+        type: "matching",
+        badge: "配對題",
+        question: "【紀錄配對】請將以下阿仙奴球員與其創下嘅「隊史/聯賽紀錄」正確配對：",
+        pairs: [
+          { left: "尼高拉斯比比 (Nicolas Pépé)", right: "2019 年以 7,200 萬鎊創當時隊史最貴收購" },
+          { left: "大衛拿耶 (David Raya)", right: "2023/24 賽季 16 場 Clean Sheet 奪金手套" },
+          { left: "雲佩斯 (Robin van Persie)", right: "2011/12 賽季英超轟入 30 球奪金靴獎" },
+          { left: "恩華利 (Ethan Nwaneri)", right: "15 歲 181 日刷新英超歷史最年輕上陣紀錄" }
+        ],
+        explanation: "比比曾為球會身價王；拿耶 23/24 季錄 16 場不失球奪金手套；雲佩斯 11/12 季 30 球英超金靴；恩華利 2022 年對賓福特創英超最年輕上陣紀錄！"
+      },
+
+      // Q7: MC (Hard)
+      {
+        id: 7,
+        type: "mc",
+        badge: "戰術細節",
+        question: "阿迪達（Mikel Arteta）執教時代戰術極為強調「邊路重載與空間發掘」。隊長奧迪哥特（Martin Ødegaard）最常與哪位翼鋒喺右路形成經典「右路三角配合」？",
+        options: [
+          "馬天尼利 (Gabriel Martinelli)",
+          "布卡約薩卡 (Bukayo Saka)",
+          "特羅薩德 (Leandro Trossard)",
+          "熱蘇斯 (Gabriel Jesus)"
+        ],
+        answer: 1,
+        explanation: "奧迪哥特（右8號位）、薩卡（右翼）與本白禮（右後衛）組成的「右路鐵三角」，係阿仙奴近年最具破壞力嘅戰術進攻發動機！"
+      },
+
+      // Q8: ORDER (Hard)
+      {
+        id: 8,
+        type: "order",
+        badge: "轉會身價排序",
+        question: "【破紀錄轉會】請將以下 4 位阿仙奴引援按「轉會費金額」由高至低（最貴到較便宜）排列：",
+        items: [
+          "迪肯賴斯 (Declan Rice)",
+          "尼高拉斯比比 (Nicolas Pépé)",
+          "哈伐斯 (Kai Havertz)",
+          "奧巴美揚 (Pierre-Emerick Aubameyang)"
+        ],
+        correctOrderIndices: [0, 1, 2, 3],
+        explanation: "轉會費金額排序：迪肯賴斯（1.05億鎊） > 尼高拉斯比比（7,200萬鎊） > 哈伐斯（6,500萬鎊） > 奧巴美揚（5,600萬鎊）。"
+      },
+
+      // Q9: MC (Hard)
+      {
+        id: 9,
+        type: "mc",
+        badge: "歐聯魔鬼考驗",
+        question: "2023/24 歐聯十六強次回合，阿仙奴主場互射十二碼淘汰波圖晉級八強。門將大衛拿耶（David Raya）喺互射十二碼階段撲出了幾多個波圖球員嘅射門？",
+        options: [
+          "1 個",
+          "2 個",
+          "3 個",
+          "4 個"
+        ],
+        answer: 1,
+        explanation: "大衛拿耶喺 PK 大戰神勇撲出加蘭奴（Galeno）同文迪斯（Wendell）嘅十二碼，帶領阿仙奴睽違 14 年重返歐聯八強！"
+      },
+
+      // Q10: MATCHING (Hard)
+      {
+        id: 10,
+        type: "matching",
+        badge: "外借軌跡配對",
+        question: "【青訓外借】阿仙奴小將喺成長過程中常被外借磨練。請配對以下球員與其曾外借效力嘅球會：",
+        pairs: [
+          { left: "薩利巴 (William Saliba)", right: "馬賽 (Marseille)" },
+          { left: "奧迪哥特 (Martin Ødegaard)", right: "皇家蘇斯達 (Real Sociedad)" },
+          { left: "史密夫路 (Emile Smith Rowe)", right: "哈德斯菲爾德 (Huddersfield)" },
+          { left: "尼基迪亞 (Eddie Nketiah)", right: "列斯聯 (Leeds United)" }
+        ],
+        explanation: "薩利巴外借馬賽榮獲法甲最佳青年球員；奧迪哥特加盟前曾外借皇蘇；史密夫路外借哈德斯菲爾德展露頭角；尼基迪亞曾外借列斯聯受比爾沙指導。"
+      },
+
+      // Q11: MC
+      {
+        id: 11,
+        type: "mc",
+        badge: "經典賽事",
+        question: "阿迪達接任領隊後奪得嘅第一個冠軍係 2019/20 賽季 FA Cup。決賽在溫布萊憑奧巴美揚梅開二度，以 2:1 擊敗哪隊奪冠？",
+        options: [
+          "曼城",
+          "車路士",
+          "曼聯",
+          "托特納姆熱刺"
+        ],
+        answer: 1,
+        explanation: "阿仙奴喺 Wembley 決賽憑奧巴美揚梅開二度，以 2:1 逆轉擊敗車路士，奪得球會第 14 座足總盃冠軍！"
+      },
+
+      // Q12: ORDER
+      {
+        id: 12,
+        type: "order",
+        badge: "賽事年代排序",
+        question: "【球會榮譽時間軸】請將阿仙奴奪得以下 4 次 FA Cup 足總盃冠軍嘅年份「由舊至最新」排列：",
+        items: [
+          "2014 年 (勝侯城 3:2)",
+          "2015 年 (勝阿士東維拉 4:0)",
+          "2017 年 (勝車路士 2:1)",
+          "2020 年 (勝車路士 2:1)"
+        ],
+        correctOrderIndices: [0, 1, 2, 3],
+        explanation: "阿仙奴近 15 年 4 次足總盃封王時間軸分別為：2014 年 ➔ 2015 年 ➔ 2017 年 ➔ 2020 年！"
+      },
+
+      // Q13: MC
+      {
+        id: 13,
+        type: "mc",
+        badge: "球員號碼考驗",
+        question: "德國多面手哈伐斯（Kai Havertz）於 2023 年夏天加盟阿仙奴後，身穿哪一個球衣號碼？",
+        options: [
+          "9 號",
+          "29 號",
+          "14 號",
+          "23 號"
+        ],
+        answer: 1,
+        explanation: "哈伐斯加盟兵工廠後繼續延續佢職業生涯嘅幸運號碼——身穿 29 號球衣！"
+      },
+
+      // Q14: MATCHING
+      {
+        id: 14,
+        type: "matching",
+        badge: "球星位置配對",
+        question: "【陣容位置】請將以下現役阿仙奴主力球員與其場上主要位置正確配對：",
+        pairs: [
+          { left: "大衛拿耶 (David Raya)", right: "守門員 (GK)" },
+          { left: "加比爾馬加希斯 (Gabriel Magalhães)", right: "中堅 (CB)" },
+          { left: "布卡約薩卡 (Bukayo Saka)", right: "右翼 (RW)" },
+          { left: "梅列克 (Mikel Merino)", right: "中場 (CM)" }
+        ],
+        explanation: "拿耶鎮守獨木關；加比爾與薩利巴組成頂級中堅塔；薩卡為右路爆破手；梅列克（Merino）則於 2024 夏季加盟強化中場制空與抗壓！"
+      },
+
+      // Q15: MC (Declan Rice Jersey Fix: #41)
+      {
+        id: 15,
+        type: "mc",
+        badge: "球衣號碼定海神針",
+        question: "2023 年夏天阿仙奴以打破球會轉會費紀錄（1.05 億鎊）簽入英格蘭中場樞紐迪肯賴斯（Declan Rice）。請問佢喺阿仙奴身穿嘅球衣號碼係？",
+        options: [
+          "41 號",
+          "4 號",
+          "6 號",
+          "8 號"
+        ],
+        answer: 0,
+        explanation: "迪肯賴斯加盟阿仙奴後，堅持繼續選用自青訓時期起一直伴隨佢成長嘅標誌性 41 號球衣（Jersey #41）！"
+      }
+    ];
+
+    // State Variables
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    // Interactive State Variables
+    let matchingSelectedLeft = null;
+    let matchingUserPairs = {}; // leftIndex -> rightIndex
+    let currentOrderList = [];  // Array of item indices
+
+    // Elements
+    const startScreen = document.getElementById('start-screen');
+    const quizScreen = document.getElementById('quiz-screen');
+    const resultScreen = document.getElementById('result-screen');
+
+    const questionText = document.getElementById('question-text');
+    const questionNumber = document.getElementById('question-number');
+    const questionBadge = document.getElementById('question-badge');
+    const scoreCount = document.getElementById('score-count');
+    const progressBar = document.getElementById('progress');
+    const interactionArea = document.getElementById('quiz-interaction-area');
+
+    const explanationDiv = document.getElementById('explanation');
+    const explanationText = document.getElementById('explanation-text');
+
+    const actionBtn = document.getElementById('action-btn');
+    const actionBtnText = document.getElementById('action-btn-text');
+    const actionBtnIcon = document.getElementById('action-btn-icon');
+
+    function startGame() {
+      currentQuestionIndex = 0;
+      score = 0;
+      startScreen.classList.add('hidden');
+      resultScreen.classList.add('hidden');
+      quizScreen.classList.remove('hidden');
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      resetState();
+      const q = questions[currentQuestionIndex];
+
+      // Header Meta Updates
+      questionText.innerText = q.question;
+      questionNumber.querySelector('span').innerText = `問題 ${currentQuestionIndex + 1}/15`;
+      questionBadge.innerText = q.badge;
+      scoreCount.querySelector('span').innerText = `得分: ${score}`;
+
+      // Progress bar
+      const progressPercent = ((currentQuestionIndex + 1) / questions.length) * 100;
+      progressBar.style.width = `${progressPercent}%`;
+
+      // Render based on Question Type
+      if (q.type === 'mc') {
+        renderMC(q);
+      } else if (q.type === 'matching') {
+        renderMatching(q);
+      } else if (q.type === 'order') {
+        renderOrder(q);
+      }
+    }
+
+    function resetState() {
+      interactionArea.innerHTML = '';
+      explanationDiv.classList.add('hidden');
+      actionBtn.classList.add('hidden');
+      matchingSelectedLeft = null;
+      matchingUserPairs = {};
+      currentOrderList = [];
+    }
+
+    /* ----------------------------------------------------
+       TYPE 1: MULTIPLE CHOICE (MC)
+    ---------------------------------------------------- */
+    function renderMC(q) {
+      const container = document.createElement('div');
+      container.className = 'grid grid-cols-1 gap-3';
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'glass-option w-full p-4 rounded-2xl text-left font-semibold text-slate-100 flex items-center justify-between group animate-pop';
+        btn.style.animationDelay = `${idx * 0.06}s`;
+
+        btn.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-white/10 flex items-center justify-center text-xs font-bold text-gunnersGold group-hover:bg-gunnersRed group-hover:text-white transition-colors">
+              ${String.fromCharCode(65 + idx)}
+            </span>
+            <span class="text-sm md:text-base">${opt}</span>
+          </div>
+          <i class="fa-regular fa-circle text-slate-500 group-hover:text-white transition-colors"></i>
+        `;
+
+        btn.addEventListener('click', () => handleMCSelection(idx, btn));
+        container.appendChild(btn);
+      });
+
+      interactionArea.appendChild(container);
+    }
+
+    function handleMCSelection(selectedIndex, selectedBtn) {
+      const q = questions[currentQuestionIndex];
+      const allButtons = interactionArea.querySelectorAll('button');
+
+      allButtons.forEach(btn => {
+        btn.disabled = true;
+        btn.style.cursor = 'default';
+      });
+
+      if (selectedIndex === q.answer) {
+        score++;
+        selectedBtn.classList.add('correct');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-check text-green-400';
+      } else {
+        selectedBtn.classList.add('wrong', 'animate-shake');
+        selectedBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-red-400';
+
+        // Highlight correct option
+        const correctBtn = allButtons[q.answer];
+        correctBtn.classList.add('correct');
+        correctBtn.querySelector('i').className = 'fa-solid fa-circle-check text-green-400';
+      }
+
+      scoreCount.querySelector('span').innerText = `得分: ${score}`;
+      showExplanation(q.explanation);
+      setupNextButton();
+    }
+
+    /* ----------------------------------------------------
+       TYPE 2: MATCHING PAIRS
+    ---------------------------------------------------- */
+    // Shuffle helper
+    function shuffleArray(arr) {
+      const array = [...arr];
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function renderMatching(q) {
+      // Store shuffled right side mappings
+      if (!q._shuffledRight) {
+        const rightItems = q.pairs.map((p, i) => ({ text: p.right, originalIdx: i }));
+        q._shuffledRight = shuffleArray(rightItems);
+      }
+
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+
+      // Left Column
+      const leftCol = document.createElement('div');
+      leftCol.className = 'space-y-2.5';
+      const leftHeader = document.createElement('div');
+      leftHeader.className = 'text-xs font-bold text-gunnersGold mb-2 uppercase tracking-wider flex items-center gap-1.5';
+      leftHeader.innerHTML = '<i class="fa-solid fa-hand-pointer"></i> 1. 點擊選擇左邊項目';
+      leftCol.appendChild(leftHeader);
+
+      q.pairs.forEach((pair, leftIdx) => {
+        const btn = document.createElement('button');
+        btn.id = `match-left-${leftIdx}`;
+        btn.className = 'glass-option w-full p-3.5 rounded-xl text-left text-xs md:text-sm font-semibold flex items-center justify-between border border-white/10';
+        btn.innerHTML = `<span>${pair.left}</span> <i class="fa-regular fa-circle text-slate-500 text-xs"></i>`;
+        btn.addEventListener('click', () => handleMatchingLeftClick(leftIdx));
+        leftCol.appendChild(btn);
+      });
+
+      // Right Column
+      const rightCol = document.createElement('div');
+      rightCol.className = 'space-y-2.5';
+      const rightHeader = document.createElement('div');
+      rightHeader.className = 'text-xs font-bold text-gunnersGold mb-2 uppercase tracking-wider flex items-center gap-1.5';
+      rightHeader.innerHTML = '<i class="fa-solid fa-link"></i> 2. 再點擊右邊連線';
+      rightCol.appendChild(rightHeader);
+
+      q._shuffledRight.forEach((item, rightDisplayIdx) => {
+        const btn = document.createElement('button');
+        btn.id = `match-right-${rightDisplayIdx}`;
+        btn.className = 'glass-option w-full p-3.5 rounded-xl text-left text-xs md:text-sm font-semibold flex items-center justify-between border border-white/10';
+        btn.innerHTML = `<span>${item.text}</span> <i class="fa-regular fa-circle text-slate-500 text-xs"></i>`;
+        btn.addEventListener('click', () => handleMatchingRightClick(rightDisplayIdx, item.originalIdx));
+        rightCol.appendChild(btn);
+      });
+
+      grid.appendChild(leftCol);
+      grid.appendChild(rightCol);
+      interactionArea.appendChild(grid);
+
+      // Submit matching button setup
+      actionBtnText.innerText = '提交配對答案';
+      actionBtnIcon.className = 'fa-solid fa-check text-xs';
+      actionBtn.classList.remove('hidden');
+    }
+
+    function handleMatchingLeftClick(leftIdx) {
+      if (actionBtnText.innerText === '下一條問題') return; // disabled if submitted
+
+      matchingSelectedLeft = leftIdx;
+      
+      // Highlight selected left button
+      const q = questions[currentQuestionIndex];
+      q.pairs.forEach((_, idx) => {
+        const btn = document.getElementById(`match-left-${idx}`);
+        if (idx === leftIdx) {
+          btn.classList.add('selected-pair');
+        } else if (matchingUserPairs[idx] === undefined) {
+          btn.classList.remove('selected-pair');
+        }
+      });
+    }
+
+    function handleMatchingRightClick(rightDisplayIdx, originalRightIdx) {
+      if (actionBtnText.innerText === '下一條問題') return;
+      if (matchingSelectedLeft === null) return;
+
+      const leftIdx = matchingSelectedLeft;
+      matchingUserPairs[leftIdx] = originalRightIdx;
+
+      // Visual updates for paired items
+      const leftBtn = document.getElementById(`match-left-${leftIdx}`);
+      const rightBtn = document.getElementById(`match-right-${rightDisplayIdx}`);
+
+      leftBtn.className = 'glass-option w-full p-3.5 rounded-xl text-left text-xs md:text-sm font-semibold flex items-center justify-between border border-gunnersGold bg-gunnersGold/20 text-gunnersGold';
+      leftBtn.querySelector('i').className = 'fa-solid fa-link text-gunnersGold text-xs';
+
+      rightBtn.className = 'glass-option w-full p-3.5 rounded-xl text-left text-xs md:text-sm font-semibold flex items-center justify-between border border-gunnersGold bg-gunnersGold/20 text-gunnersGold';
+      rightBtn.querySelector('i').className = 'fa-solid fa-link text-gunnersGold text-xs';
+
+      matchingSelectedLeft = null;
+    }
+
+    function submitMatchingAnswer() {
+      const q = questions[currentQuestionIndex];
+      let correctCount = 0;
+      const totalPairs = q.pairs.length;
+
+      // Evaluate paired
+      for (let i = 0; i < totalPairs; i++) {
+        if (matchingUserPairs[i] === i) {
+          correctCount++;
+        }
+      }
+
+      // Mark visual feedback
+      q.pairs.forEach((_, leftIdx) => {
+        const leftBtn = document.getElementById(`match-left-${leftIdx}`);
+        const userMatchedRightIdx = matchingUserPairs[leftIdx];
+
+        if (userMatchedRightIdx === leftIdx) {
+          leftBtn.className = 'glass-option w-full p-3.5 rounded-xl text-left text-xs md:text-sm font-semibold flex items-center justify-between correct';
+          leftBtn.querySelector('i').className = 'fa-solid fa-circle-check text-green-400 text-xs';
+        } else {
+          leftBtn.className = 'glass-option w-full p-3.5 rounded-xl text-left text-xs md:text-sm font-semibold flex items-center justify-between wrong';
+          leftBtn.querySelector('i').className = 'fa-solid fa-circle-xmark text-red-400 text-xs';
+        }
+      });
+
+      // Disable buttons
+      q.pairs.forEach((_, idx) => {
+        const lBtn = document.getElementById(`match-left-${idx}`);
+        if (lBtn) lBtn.disabled = true;
+      });
+      q._shuffledRight.forEach((_, idx) => {
+        const rBtn = document.getElementById(`match-right-${idx}`);
+        if (rBtn) rBtn.disabled = true;
+      });
+
+      if (correctCount === totalPairs) {
+        score++;
+      }
+
+      scoreCount.querySelector('span').innerText = `得分: ${score}`;
+      showExplanation(q.explanation);
+      setupNextButton();
+    }
+
+    /* ----------------------------------------------------
+       TYPE 3: DRAG / RE-ORDER RANKING
+    ---------------------------------------------------- */
+    function renderOrder(q) {
+      if (!q._currentIndices) {
+        // Shuffle starting order
+        q._currentIndices = shuffleArray([0, 1, 2, 3]);
+      }
+      currentOrderList = [...q._currentIndices];
+
+      const container = document.createElement('div');
+      container.id = 'order-list-container';
+      container.className = 'space-y-3';
+
+      renderOrderItems(container, q);
+
+      interactionArea.appendChild(container);
+
+      // Action button setup
+      actionBtnText.innerText = '確認排序';
+      actionBtnIcon.className = 'fa-solid fa-check text-xs';
+      actionBtn.classList.remove('hidden');
+    }
+
+    function renderOrderItems(container, q) {
+      container.innerHTML = '';
+
+      currentOrderList.forEach((itemIdx, pos) => {
+        const itemText = q.items[itemIdx];
+        const card = document.createElement('div');
+        card.className = 'glass-option p-3.5 rounded-2xl flex items-center justify-between border border-white/10 animate-pop';
+
+        card.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="w-7 h-7 rounded-lg bg-gunnersRed/30 text-gunnersGold text-xs font-bold flex items-center justify-center border border-gunnersRed/50">
+              ${pos + 1}
+            </span>
+            <span class="text-xs md:text-sm font-semibold text-slate-100">${itemText}</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="moveOrderItem(${pos}, -1)" ${pos === 0 ? 'disabled class="opacity-30 p-2 text-slate-400"' : 'class="p-2 text-gunnersGold hover:bg-white/10 rounded-lg transition-colors"'}>
+              <i class="fa-solid fa-arrow-up"></i>
+            </button>
+            <button onclick="moveOrderItem(${pos}, 1)" ${pos === currentOrderList.length - 1 ? 'disabled class="opacity-30 p-2 text-slate-400"' : 'class="p-2 text-gunnersGold hover:bg-white/10 rounded-lg transition-colors"'}>
+              <i class="fa-solid fa-arrow-down"></i>
+            </button>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+    }
+
+    function moveOrderItem(pos, direction) {
+      if (actionBtnText.innerText === '下一條問題') return;
+
+      const newPos = pos + direction;
+      if (newPos < 0 || newPos >= currentOrderList.length) return;
+
+      // Swap
+      const temp = currentOrderList[pos];
+      currentOrderList[pos] = currentOrderList[newPos];
+      currentOrderList[newPos] = temp;
+
+      const q = questions[currentQuestionIndex];
+      q._currentIndices = [...currentOrderList];
+      const container = document.getElementById('order-list-container');
+      if (container) {
+        renderOrderItems(container, q);
+      }
+    }
+
+    function submitOrderAnswer() {
+      const q = questions[currentQuestionIndex];
+      const isCorrect = JSON.stringify(currentOrderList) === JSON.stringify(q.correctOrderIndices);
+
+      const container = document.getElementById('order-list-container');
+      const cards = container.children;
+
+      currentOrderList.forEach((itemIdx, pos) => {
+        const card = cards[pos];
+        if (itemIdx === q.correctOrderIndices[pos]) {
+          card.className = 'glass-option p-3.5 rounded-2xl flex items-center justify-between correct mb-2';
+        } else {
+          card.className = 'glass-option p-3.5 rounded-2xl flex items-center justify-between wrong mb-2';
+        }
+      });
+
+      if (isCorrect) {
+        score++;
+      }
+
+      scoreCount.querySelector('span').innerText = `得分: ${score}`;
+      showExplanation(q.explanation);
+      setupNextButton();
+    }
+
+    /* ----------------------------------------------------
+       COMMON ACTIONS & FLOW
+    ---------------------------------------------------- */
+    function handleActionClick() {
+      const q = questions[currentQuestionIndex];
+
+      if (actionBtnText.innerText === '提交配對答案') {
+        submitMatchingAnswer();
+      } else if (actionBtnText.innerText === '確認排序') {
+        submitOrderAnswer();
+      } else if (actionBtnText.innerText === '下一條問題') {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+          loadQuestion();
+        } else {
+          showResults();
+        }
+      }
+    }
+
+    function showExplanation(text) {
+      explanationText.innerText = text;
+      explanationDiv.classList.remove('hidden');
+    }
+
+    function setupNextButton() {
+      actionBtnText.innerText = '下一條問題';
+      actionBtnIcon.className = 'fa-solid fa-chevron-right text-xs';
+      actionBtn.classList.remove('hidden');
+    }
+
+    function showResults() {
+      quizScreen.classList.add('hidden');
+      resultScreen.classList.remove('hidden');
+
+      document.getElementById('final-score').innerText = score;
+      const rankTitle = document.getElementById('rank-title');
+      const rankDesc = document.getElementById('rank-desc');
+      const rankIcon = document.getElementById('rank-icon');
+
+      if (score === 15) {
+        rankTitle.innerText = "🏆 酋長球場傳奇 (Legend)";
+        rankDesc.innerText = "滿分！神級槍迷！你對阿仙奴戰術數據、精密時間戳、轉會紀錄及近 15 年歷史聊如指掌，血統比雲格同阿迪達更加純正！COYG！🔴⚪";
+        rankIcon.className = "fa-solid fa-trophy";
+        triggerConfetti();
+      } else if (score >= 12) {
+        rankTitle.innerText = "⭐ 核心主力球員 (First Team)";
+        rankDesc.innerText = "極之出色！你絕對係阿仙奴資深死忠，連首 10 條魔鬼戰術與數據題都難唔倒你！";
+        rankIcon.className = "fa-solid fa-medal";
+        triggerConfetti();
+      } else if (score >= 8) {
+        rankTitle.innerText = "🧢 輪換主力 (Squad Player)";
+        rankDesc.innerText = "表現唔錯！基本大事你都好清楚，不過有啲硬核細節與精確數據可以溫習多啲！";
+        rankIcon.className = "fa-solid fa-shield";
+      } else {
+        rankTitle.innerText = "👶 海布里青年軍 (Academy Player)";
+        rankDesc.innerText = "繼續努力！死忠之路漫漫，即刻再去睇多啲精華重溫與戰術分析！";
+        rankIcon.className = "fa-solid fa-seedling";
+      }
+    }
+
+    function triggerConfetti() {
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 120,
+          spread: 80,
+          origin: { y: 0.6 },
+          colors: ['#DB0007', '#FFD700', '#ffffff', '#06141F']
+        });
+      }
+    }
+  </script>
+</body>
+</html>
